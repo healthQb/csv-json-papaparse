@@ -1,4 +1,4 @@
-const Papa = require('./papaparse.min.js'); // https://www.papaparse.com/docs#data
+const Papa = require('./papaparse.min.js'); 
 const fs = require('fs');
 
 const config = {
