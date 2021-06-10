@@ -54,6 +54,8 @@ reader.on('data', function (chunk) {
     // modify ansRange
     let ansRangeNum, ansRangeText, ansRangeType
 
+    // if(questNo)
+
     // Example: 0-5 (Never - Always)
     if (data.ansRange.indexOf('(') > 0) {
       // console.log('first (', results.data.category, results.data.questNo)
@@ -74,7 +76,7 @@ reader.on('data', function (chunk) {
     // Example: 0-7
     if ((/0\-7/).test(data.ansRange)) {
       // console.log('third 0-7', results.data.category, results.data.questNo)
-      ansRangeType = "slider"
+      ansRangeType = "date"
       ansRangeNum = data.ansRange.split('(')[0].trim().split('-')
     }
 
@@ -91,9 +93,32 @@ reader.on('data', function (chunk) {
     return data
   })
 
-  console.log(result.data)
+  const data = result.data
+  const assessment1 = data.filter(elem => {
+    return elem.category === 'INTAW'
+  })
 
-  fs.writeFileSync('questions.json', JSON.stringify(result.data, null, ' '));
+  const assessment2 = data.filter(elem => {
+    return elem.category === 'SEBE'
+  })
+
+  const assessment3 = data.filter(elem => {
+    return elem.category === 'PCS'
+  })
+
+  const assessment4 = data.filter(elem => {
+    return elem.category === 'EMAW'
+  })
+  const assessment5 = data.filter(elem => {
+    return elem.category === 'MOVE'
+  })
+
+  const assessment = { assessment1, assessment2, assessment3, assessment4, assessment5 }
+
+
+  console.log(assessment2)
+
+  fs.writeFileSync('questions.json', JSON.stringify(assessment, null, ' '));
 
 });
 
